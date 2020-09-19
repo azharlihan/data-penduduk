@@ -9,6 +9,9 @@
 
 <body>
 	<h1>Daftar Penduduk</h1>
+	<pre>
+		<?= var_dump($daftarPenduduk); ?>
+	</pre>
 </body>
 
 </html>

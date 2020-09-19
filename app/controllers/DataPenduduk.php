@@ -4,6 +4,10 @@ class DataPenduduk extends BaseController
 {
 	public function index()
 	{
-		$this->view('daftarPenduduk');
+		$daftarPenduduk = $this->model('PendudukModel')->getDaftarPenduduk();
+
+		$this->view('daftarPenduduk', [
+			'daftarPenduduk' => $daftarPenduduk
+		]);
 	}
 }
