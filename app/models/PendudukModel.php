@@ -1,6 +1,8 @@
 <?php
 
-class PendudukModel extends BaseModel
+namespace Models;
+
+class PendudukModel extends \BaseModel
 {
 	protected $table;
 

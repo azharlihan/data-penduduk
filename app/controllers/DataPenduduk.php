@@ -1,6 +1,8 @@
 <?php
 
-class DataPenduduk extends BaseController
+namespace Controllers;
+
+class DataPenduduk extends \BaseController
 {
 	public function index()
 	{

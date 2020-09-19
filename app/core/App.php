@@ -19,7 +19,8 @@ class App
 		}
 
 		// Initialize  controller
-		$this->controller = new $this->controller;
+		$controllerName = "Controllers\\$this->controller";
+		$this->controller = new $controllerName;
 
 		// Set method name based URL
 		if (isset($url[1])) {
