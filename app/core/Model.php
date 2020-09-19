@@ -1,9 +1,9 @@
-<?php 
+<?php
 
-class BaseModel
+class Model
 {
 	protected $db;
-	protected $table; 
+	protected $table;
 
 	public function __construct()
 	{

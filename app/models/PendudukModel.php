@@ -2,7 +2,7 @@
 
 namespace Models;
 
-class PendudukModel extends \BaseModel
+class PendudukModel extends \Model
 {
 	protected $table;
 

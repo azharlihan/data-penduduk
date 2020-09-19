@@ -2,7 +2,7 @@
 
 namespace Controllers;
 
-class DataPenduduk extends \BaseController
+class DataPenduduk extends \Controller
 {
 	public function index()
 	{
