@@ -3,7 +3,7 @@
 class App
 {
 	// Declare properties and intialize default value for each variable
-	private $controller = 'Home';
+	private $controller = 'DataPenduduk';
 	private $method = 'index';
 	private $params = [];
 
@@ -14,7 +14,7 @@ class App
 
 		// Set controller name based URL
 		if (file_exists('controllers/' . $url[0] . '.php')) {
-			$this->controller = ucfirst($url[0]);
+			$this->controller = ucfirst(strtolower($url[0]));
 			unset($url[0]);
 		}
 

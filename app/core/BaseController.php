@@ -2,8 +2,10 @@
 
 class BaseController
 {
-	public function __construct()
+	public function view($view, $data = [])
 	{
-		echo "core/BaseController";
+		extract($data);
+
+		require "views/$view.php";
 	}
 }

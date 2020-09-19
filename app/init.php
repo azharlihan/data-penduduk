@@ -9,16 +9,12 @@ require_once 'core/Config.php';
 // Load the real app class
 require_once 'core/App.php';
 
-// Autoload another core class
+// Autoload another class
 spl_autoload_register(function ($className) {
+	// core and controller must has a unique class name
 	if (file_exists("core/$className.php")) {
 		require_once "core/$className.php";
-	}
-});
-
-// Autoload controller class
-spl_autoload_register(function ($className) {
-	if (file_exists("controllers/$className.php")) {
+	} else	if (file_exists("controllers/$className.php")) {
 		require_once "controllers/$className.php";
 	}
 });
