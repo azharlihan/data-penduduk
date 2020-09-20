@@ -14,16 +14,20 @@ class Penduduk extends \Model
 		$this->table = 'data_penduduk';
 	}
 
-	public function getDaftarPenduduk()
+	public function getDaftarPenduduk($postData)
 	{
-		$this->db->query("SELECT * FROM $this->table INNER JOIN hubungan_keluarga USING(id_stat_hbkel)");
-		$daftarPenduduk = $this->db->result();
+		$datatable = new \Datatable;
 
-		foreach ($daftarPenduduk as $k => $v) {
-			$infoNik = $this->extractInfoNik($v['nik']);
+		$datatable->postData = $postData;
+		$datatable->from = $this->table;
+		$datatable->join = 'INNER JOIN hubungan_keluarga USING(id_stat_hbkel)';
+		$datatable->searchColumn([
+			'no_kk',
+			'nik',
+			'nama_lengkap'
+		]);
 
-			$daftarPenduduk[$k] = array_merge($daftarPenduduk[$k], $infoNik);
-		}
+		$daftarPenduduk = $datatable->getResult();
 
 		return $daftarPenduduk;
 	}
