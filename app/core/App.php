@@ -13,11 +13,15 @@ class App
 		$url = $this->parseURL();
 
 		// Set controller name based URL
-		if (file_exists('controllers/' . $url[0] . '.php')) {
-			$this->controller = ucfirst(strtolower($url[0]));
-			unset($url[0]);
+		if (isset($url[0])) {
+			if (file_exists('controllers/' . $url[0] . '.php')) {
+				$this->controller = ucfirst(strtolower($url[0]));
+				unset($url[0]);
+			} else {
+				http_response_code(404);
+				exit('<h1>404 Not Found</h1>');
+			}
 		}
-
 		// Initialize  controller
 		$controllerName = "Controllers\\$this->controller";
 		$this->controller = new $controllerName;
@@ -27,6 +31,9 @@ class App
 			if (method_exists($this->controller, $url[1])) {
 				$this->method = strtolower($url[1]);
 				unset($url[1]);
+			} else {
+				http_response_code(404);
+				exit('<h1>404 Not Found</h1>');
 			}
 		}
 
