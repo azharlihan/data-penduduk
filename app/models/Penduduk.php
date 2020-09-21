@@ -78,8 +78,26 @@ class Penduduk extends \Model
 		$this->db->execute();
 		return [
 			'status' => 'ok',
-			'message' => 'Data Penduduk berhasil di perbarui.'
+			'message' => 'Data penduduk berhasil di perbarui.'
 		];
+	}
+
+	public function deleteDataPenduduk($nik)
+	{
+		$this->db->query("DELETE FROM $this->table WHERE nik = :nik");
+		$this->db->bind('nik', $nik);
+		$affected = $this->db->execute();
+		if ($affected > 0) {
+			return [
+				'status' => 'ok',
+				'message' => 'Data penduduk berhasil dihapus.'
+			];
+		} else {
+			return [
+				'status' => 'ok',
+				'message' => 'Data penduduk gagal dihapus.'
+			];
+		}
 	}
 
 	public function getDaftarHbkel()

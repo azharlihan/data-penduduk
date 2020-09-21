@@ -11,7 +11,9 @@
 	</div>
 	<div class="row">
 		<div class="col">
-			<table id="tablePenduduk" class="table table-bordered table-hover" style="width: 100%;"></table>
+			<div class="table-responsive">
+				<table id="tablePenduduk" class="table table-bordered table-hover" style="width: 100%;"></table>
+			</div>
 		</div>
 	</div>
 </div>
@@ -19,8 +21,18 @@
 <?= $this->view('_script'); ?>
 
 <script>
+	var tablePenduduk;
+
+	function deletePenduduk(nik) {
+		if (confirm('Hapus data ini?')) {
+			myFetch(`/penduduk/delete/${nik}`).then((result) => {
+				alert(result.message);
+				tablePenduduk.ajax.reload(null, false);
+			})
+		}
+	}
 	$(document).ready(() => {
-		var tablePenduduk = $('#tablePenduduk').DataTable({
+		tablePenduduk = $('#tablePenduduk').DataTable({
 			ajax: {
 				url: url + '/penduduk/getdaftarpenduduk'
 			},
@@ -46,7 +58,8 @@
 				},
 				{
 					data: 'nama_lengkap',
-					title: 'Nama'
+					title: 'Nama',
+					responsivePriority: 3,
 				},
 				{
 					data: 'gender',
@@ -71,8 +84,22 @@
 				{
 					data: 'tanggal_update',
 					title: 'Tgl Update',
+				},
+				{
+					data: 'tanggal_create',
+					title: 'Tgl Dibuat',
 				}
-			]
+			],
+			columnDefs: [{
+				title: 'Tools',
+				targets: 8,
+				data: 'nik',
+				render: (d) => {
+					let r = `<a class="btn btn-sm btn-primary" href="${url}/penduduk/form/perbarui/${d}">✎</a>`
+					r += `<button class="btn btn-sm btn-warning" onclick="deletePenduduk(${d})">🗑</button>`
+					return r;
+				}
+			}]
 		});
 	})
 </script>

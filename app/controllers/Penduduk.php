@@ -57,4 +57,11 @@ class Penduduk extends \Controller
 
 		$this->response($result);
 	}
+
+	public function delete($nik)
+	{
+		$result = $this->model('Penduduk')->deleteDataPenduduk($nik);
+
+		$this->response($result);
+	}
 }
