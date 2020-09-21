@@ -4,7 +4,7 @@ Website live tersedia di [datapenduduk.azharlihan.com](https://datapenduduk.azha
 CRUD data penduduk menggunakan konsep OOP PHP tanpa framework.
 
 ### Cara install
-1. Download melalui [link ini](https://github.com/azharlihan/datapenduduk/archive/1.0.0.zip)
+1. Download melalui [link ini](https://github.com/azharlihan/datapenduduk/archive/1.0.1.zip)
 2. Extract file nya, kemudian rename folder rootnya untuk mempermudah akses (misal: datapenduduk)
 3. Pindahkan ke folder server (misal: htdocs)
 4. Import database menggunakan sqldump. File sql ada di dalam folder `/app/datapenduduk.sql`
