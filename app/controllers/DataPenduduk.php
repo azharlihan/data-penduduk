@@ -6,10 +6,13 @@ class DataPenduduk extends \Controller
 {
 	public function index()
 	{
-		$daftarPenduduk = $this->model('PendudukModel')->getDaftarPenduduk();
+		$this->view('daftarPenduduk');
+	}
 
-		$this->view('daftarPenduduk', [
-			'daftarPenduduk' => $daftarPenduduk
-		]);
+	public function getdaftarpenduduk()
+	{
+		$daftarPenduduk = $this->model('Penduduk')->getDaftarPenduduk($this->postData());
+
+		$this->response($daftarPenduduk);
 	}
 }
