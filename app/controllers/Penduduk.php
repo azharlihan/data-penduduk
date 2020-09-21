@@ -11,7 +11,10 @@ class Penduduk extends \Controller
 
 	public function form()
 	{
-		$this->view('formPenduduk');
+		$daftarHbkel = $this->model('penduduk')->getDaftarHbkel();
+		$this->view('formPenduduk', [
+			'daftarHbkel' => $daftarHbkel,
+		]);
 	}
 
 	public function getdaftarpenduduk()

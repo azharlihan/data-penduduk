@@ -35,6 +35,12 @@ class Penduduk extends \Model
 		return $daftarPenduduk;
 	}
 
+	public function getDaftarHbkel()
+	{
+		$this->db->query('SELECT * FROM hubungan_keluarga');
+		return $this->db->result();
+	}
+
 	private function extractInfoNik($nik)
 	{
 		$birthCode = substr($nik, 6, 6);
