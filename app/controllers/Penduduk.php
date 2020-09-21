@@ -9,13 +9,22 @@ class Penduduk extends \Controller
 		$this->view('daftarPenduduk');
 	}
 
-	public function form($type = null)
+	public function form($type = null, $nik = '0')
 	{
-		$daftarHbkel = $this->model('penduduk')->getDaftarHbkel();
+		$daftarHbkel = $this->model('Penduduk')->getDaftarHbkel();
+
+		$checkNik = $this->model('Penduduk')->checkNik($nik);
 
 		if ($type == 'tambah') {
 			$submitText = 'Simpan';
+			$detailPenduduk = null;
 		} else if ($type == 'perbarui') {
+			// Check nik
+			if ($checkNik == 0) {
+				$this->redirect(BASEURL);
+				exit();
+			}
+			$detailPenduduk = $this->model('Penduduk')->getDetailPenduduk($nik);
 			$submitText = 'Perbarui';
 		} else {
 			$this->redirect(BASEURL . '/penduduk/form/tambah');
@@ -23,7 +32,8 @@ class Penduduk extends \Controller
 		$this->view('formPenduduk', [
 			'daftarHbkel' => $daftarHbkel,
 			'type' => ucfirst($type),
-			'submitText' =>  $submitText
+			'submitText' =>  $submitText,
+			'detailPenduduk' => $detailPenduduk,
 		]);
 	}
 

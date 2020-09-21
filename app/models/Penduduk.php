@@ -37,18 +37,6 @@ class Penduduk extends \Model
 
 	public function postDataPenduduk($postData)
 	{
-		// Check NIK duplicate
-		$this->db->query("SELECT COUNT(nik) as count FROM $this->table WHERE nik = :nik");
-		$this->db->bind('nik', $postData->nik);
-		$nikCount = $this->db->row()['count'];
-
-		if ($nikCount > 0) {
-			return [
-				'status' => 'fail',
-				'message' => 'NIK Sudah Terdaftar.'
-			];
-		}
-
 		$now = date('Y-m-d H:i:s');
 
 		$query = "
@@ -74,6 +62,21 @@ class Penduduk extends \Model
 	{
 		$this->db->query('SELECT * FROM hubungan_keluarga');
 		return $this->db->result();
+	}
+
+	public function getDetailPenduduk($nik)
+	{
+		$this->db->query("SELECT * FROM $this->table WHERE nik = :nik");
+		$this->db->bind('nik', $nik);
+		return $this->db->row();
+	}
+
+	public function checkNIK($nik)
+	{
+		// Check NIK duplicate
+		$this->db->query("SELECT COUNT(nik) as count FROM $this->table WHERE nik = :nik");
+		$this->db->bind('nik', $nik);
+		return $this->db->row()['count'];
 	}
 
 	private function extractInfoNik($nik)
