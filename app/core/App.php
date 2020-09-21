@@ -3,7 +3,7 @@
 class App
 {
 	// Declare properties and intialize default value for each variable
-	private $controller = 'DataPenduduk';
+	private $controller = 'Penduduk';
 	private $method = 'index';
 	private $params = [];
 

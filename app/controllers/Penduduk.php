@@ -2,11 +2,16 @@
 
 namespace Controllers;
 
-class DataPenduduk extends \Controller
+class Penduduk extends \Controller
 {
 	public function index()
 	{
 		$this->view('daftarPenduduk');
+	}
+
+	public function form()
+	{
+		$this->view('formPenduduk');
 	}
 
 	public function getdaftarpenduduk()

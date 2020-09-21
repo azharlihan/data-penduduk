@@ -6,7 +6,7 @@
 			<h3>Daftar Penduduk</h3>
 		</div>
 		<div class="col-12 col-sm-6 text-right">
-			<a href="<?= BASEURL; ?>/datapenduduk/form">Tambah Baru</a>
+			<a href="<?= BASEURL; ?>/penduduk/form">Tambah Baru</a>
 		</div>
 	</div>
 	<div class="row">
@@ -22,7 +22,7 @@
 	$(document).ready(() => {
 		var tablePenduduk = $('#tablePenduduk').DataTable({
 			ajax: {
-				url: url + 'datapenduduk/getdaftarpenduduk'
+				url: url + 'penduduk/getdaftarpenduduk'
 			},
 			language: {
 				searchPlaceholder: 'Ketik KK / NIK / Nama',
