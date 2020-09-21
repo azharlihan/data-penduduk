@@ -148,7 +148,7 @@ class Penduduk extends \Model
 
 		return [
 			'gender' => $gender,
-			'birth_date' => $birthDate->format('d-m-Y'),
+			'birth_date' => $birthDate->format('Y-m-d'),
 			'age' => $age
 		];
 	}
