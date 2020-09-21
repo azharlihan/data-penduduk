@@ -10,6 +10,8 @@ class Datatable
 
 	public $join;
 
+	public $searchColumn;
+
 	protected $db;
 
 	protected $searchQuery;
@@ -26,7 +28,7 @@ class Datatable
 	 * This function changes each column to query 'WHERE like'
 	 * ex: where nama like '%agus%'
 	 */
-	public function searchColumn(array $searchColumn)
+	public function generateSearchQuery(array $searchColumn)
 	{
 		$searchQuery = "";
 
@@ -48,6 +50,8 @@ class Datatable
 
 	public function getResult()
 	{
+		$this->generateSearchQuery($this->searchColumn);
+
 		// Read request value
 		$draw = $this->postData['draw'];
 		$start = $this->postData['start'];
@@ -59,7 +63,7 @@ class Datatable
 
 		// Manual sanitizing for variable that doesn't support prepared
 		$columnName = preg_replace("/[^\w]/", "", $columnName);
-		$columnSortOrder = strtolower($columnSortOrder) == 'asc' ? 'asc' : 'desc';
+		$columnSortOrder = strtolower($columnSortOrder) == 'desc' ? 'desc' : 'asc';
 
 		// Total number of records without filtering
 		$this->query = "SELECT COUNT(*) AS allcount FROM $this->from";

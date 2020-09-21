@@ -2,8 +2,6 @@
 
 namespace Models;
 
-use DateTime;
-
 class Penduduk extends \Model
 {
 	protected $table;
@@ -21,13 +19,18 @@ class Penduduk extends \Model
 		$datatable->postData = $postData;
 		$datatable->from = $this->table;
 		$datatable->join = 'INNER JOIN hubungan_keluarga USING(id_stat_hbkel)';
-		$datatable->searchColumn([
+		$datatable->searchColumn = [
 			'no_kk',
 			'nik',
 			'nama_lengkap'
-		]);
+		];
 
 		$daftarPenduduk = $datatable->getResult();
+
+		foreach ($daftarPenduduk['aaData'] as $k => $v) {
+			$infoNik = $this->extractInfoNik($v['nik']);
+			$daftarPenduduk['aaData'][$k] = array_merge($daftarPenduduk['aaData'][$k], $infoNik);
+		}
 
 		return $daftarPenduduk;
 	}
@@ -53,9 +56,9 @@ class Penduduk extends \Model
 			$birthDate = substr($birthDate, 0, 4) . '19' . substr($birthDate, 4);
 		}
 
-		$birthDate = DateTime::createFromFormat('dmY', $birthDate);
+		$birthDate = \DateTime::createFromFormat('dmY', $birthDate);
 
-		$age = $birthDate->diff(new DateTime)->format('%y');
+		$age = $birthDate->diff(new \DateTime)->format('%y');
 
 		return [
 			'gender' => $gender,
