@@ -62,4 +62,10 @@ class Database
 		$this->stmt->execute();
 		return $this->stmt->fetch();
 	}
+
+	public function execute()
+	{
+		$this->stmt->execute();
+		return $this->stmt->rowCount();
+	}
 }

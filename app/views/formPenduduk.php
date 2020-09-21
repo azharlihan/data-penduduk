@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12 col-sm-6">
-			<h3>Penduduk</h3>
+			<h3><?= $type; ?> Data Penduduk</h3>
 		</div>
 		<div class="col-12 col-sm-6 text-right">
 			<a href="<?= BASEURL; ?>">Kembali</a>
@@ -12,7 +12,8 @@
 	<div class="row">
 		<div class="col-12 col-md-6 offset-md-3">
 			<form action="<?= BASEURL; ?>" id="formPenduduk">
-				<input type="hidden" name="">
+				<input type="hidden" name="type" value="<?= strtolower($type); ?>">
+				<input type="hidden" name="old_nik" id="old_nik">
 				<div class="form-group">
 					<label for="no_kk">Nomor Kartu Keluarga</label>
 					<input type="text" class="form-control" name="no_kk" id="no_kk" placeholder="Ketik nomor KK">
@@ -37,10 +38,29 @@
 						<?php endforeach; ?>
 					</select>
 				</div>
+				<div class="form-group">
+					<button type="button" id="submit" class="btn btn-primary"><?= $submitText; ?></button>
+				</div>
 			</form>
 		</div>
 	</div>
 </div>
 
 <?= $this->view('_script'); ?>
+
+<script>
+	$(document).ready(() => {
+		$('#submit').on('click', () => {
+			var formPenduduk = getFormData('#formPenduduk');
+			var path = formPenduduk.type == 'tambah' ? '/penduduk/postdatapenduduk' : '/penduduk/putdatapenduduk';
+			myFetch(path, formPenduduk).then((result) => {
+				alert(result.message);
+				if (result.status == 'ok') {
+					window.location = url;
+				}
+			})
+		})
+	})
+</script>
+
 <?= $this->view('_footer'); ?>

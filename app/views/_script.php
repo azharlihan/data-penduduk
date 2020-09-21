@@ -5,5 +5,29 @@
 <script src="<?= BASEURL; ?>/assets/datatables/dataTables.responsive.min.js"></script>
 <script src="<?= BASEURL; ?>/assets/datatables/responsive.bootstrap4.min.js"></script>
 <script>
-	var url = '<?= BASEURL; ?>/';
+	var url = '<?= BASEURL; ?>';
+
+	function getFormData(formSelector) {
+		var unindexedArray = $(formSelector).serializeArray();
+		var indexedArray = {};
+
+		unindexedArray.map((v) => {
+			indexedArray[v.name] = v.value;
+		});
+
+		return indexedArray;
+	}
+
+	function myFetch(path, data = {}) {
+		return fetch(url + path, {
+			method: 'POST',
+			body: JSON.stringify(data)
+		}).then(res => {
+			return Promise.resolve(res);
+		}).then(raw => {
+			return raw.json()
+		}).catch(e => {
+			alert(e);
+		});
+	}
 </script>

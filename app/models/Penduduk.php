@@ -35,6 +35,41 @@ class Penduduk extends \Model
 		return $daftarPenduduk;
 	}
 
+	public function postDataPenduduk($postData)
+	{
+		// Check NIK duplicate
+		$this->db->query("SELECT COUNT(nik) as count FROM $this->table WHERE nik = :nik");
+		$this->db->bind('nik', $postData->nik);
+		$nikCount = $this->db->row()['count'];
+
+		if ($nikCount > 0) {
+			return [
+				'status' => 'fail',
+				'message' => 'NIK Sudah Terdaftar.'
+			];
+		}
+
+		$now = date('Y-m-d H:i:s');
+
+		$query = "
+			INSERT INTO $this->table
+			(no_kk, nik, nama_lengkap, id_stat_hbkel, no_rt, tanggal_create, tanggal_update)
+			VALUES (:no_kk, :nik, :nama_lengkap, :id_stat_hbkel, 1, \"$now\", \"$now\")
+		";
+
+		$this->db->query($query);
+
+		$this->db->bind('no_kk', $postData->no_kk);
+		$this->db->bind('nik', $postData->nik);
+		$this->db->bind('nama_lengkap', $postData->nama_lengkap);
+		$this->db->bind('id_stat_hbkel', $postData->id_stat_hbkel);
+		$this->db->execute();
+		return [
+			'status' => 'ok',
+			'message' => 'Data Penduduk berhasil di simpan.'
+		];
+	}
+
 	public function getDaftarHbkel()
 	{
 		$this->db->query('SELECT * FROM hubungan_keluarga');

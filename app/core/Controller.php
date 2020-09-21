@@ -2,6 +2,12 @@
 
 class Controller
 {
+	public $stream;
+
+	public function __construct()
+	{
+		$this->stream = json_decode(file_get_contents('php://input'));
+	}
 	public function view($view, $data = [])
 	{
 		extract($data);
@@ -30,5 +36,11 @@ class Controller
 		} else {
 			return filter_input(INPUT_POST, $key, FILTER_SANITIZE_STRING);
 		}
+	}
+
+	public function redirect($url)
+	{
+		header("Location: $url");
+		exit();
 	}
 }

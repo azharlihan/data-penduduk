@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 
 // Change root directory to init.php location
 chdir(__DIR__);
