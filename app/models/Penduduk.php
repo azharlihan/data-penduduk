@@ -121,7 +121,7 @@ class Penduduk extends \Model
 		return $this->db->row()['count'];
 	}
 
-	private function extractInfoNik($nik)
+	public function extractInfoNik($nik)
 	{
 		$birthCode = substr($nik, 6, 6);
 

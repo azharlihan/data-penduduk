@@ -52,10 +52,10 @@ class Penduduk extends \Controller
 			$result = $this->model('Penduduk')->postDataPenduduk($this->stream);
 			$this->response($result);
 		} else {
-			return [
+			$this->response([
 				'status' => 'fail',
 				'message' => $validation,
-			];
+			]);
 		}
 	}
 
@@ -84,11 +84,22 @@ class Penduduk extends \Controller
 	// Untuk proses validasi di sisi server
 	private function validateDataPenduduk($d)
 	{
-		if (strlen($d->no_kk == 0) && strlen($d->no_kk > 16)) return 'Nomor KK harus 16 digit';
-		if (strlen($d->no_kk == 0) && strlen($d->no_kk > 16)) return 'NIK harus 16 digit';
+		if (strlen($d->no_kk) != 16) return 'Nomor KK harus 16 digit';
+		if (preg_match("/[^\d]/", $d->no_kk)) return 'Nomor KK hanya bisa berisi digit angka';
+
+		if (strlen($d->nik) != 16) return 'NIK harus 16 digit';
+		if (preg_match("/[^\d]/", $d->no_kk)) return 'NIK hanya bisa berisi digit angka';
+
 		if (strlen($d->nama_lengkap) == 0) return 'Nama tidak boleh kosong';
-		if (strlen($d->nama_lengkap) > 100) return 'Nama maksimal 100 karakter';
+		if (strlen($d->nama_lengkap) > 99) return 'Nama maksimal 99 karakter';
+
 		if (strlen($d->id_stat_hbkel) == 0) return 'Harap isi status hubungan keluarga';
+		$infoNik = $this->model('Penduduk')->extractInfoNik($d->nik);
+		if ($infoNik['gender'] == 'Perempuan') {
+			if ($d->id_stat_hbkel == 2) return 'Jenis kelamin perempuan tidak bisa menjadi suami.';
+		} else {
+			if ($d->id_stat_hbkel == 3) return 'Jenis kelamin laki-laki tidak bisa menjadi istri.';
+		}
 
 		return true;
 	}
