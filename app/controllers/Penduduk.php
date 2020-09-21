@@ -98,7 +98,7 @@ class Penduduk extends \Controller
 		if (preg_match("/[^\d]/", $d->no_kk)) return 'Nomor KK hanya bisa berisi digit angka';
 
 		if (strlen($d->nik) != 16) return 'NIK harus 16 digit';
-		if (preg_match("/[^\d]/", $d->no_kk)) return 'NIK hanya bisa berisi digit angka';
+		if (preg_match("/[^\d]/", $d->nik)) return 'NIK hanya bisa berisi digit angka';
 
 		if (strlen($d->nama_lengkap) == 0) return 'Nama tidak boleh kosong';
 		if (strlen($d->nama_lengkap) > 99) return 'Nama maksimal 99 karakter';
