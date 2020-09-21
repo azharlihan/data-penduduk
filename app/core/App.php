@@ -14,6 +14,8 @@ class App
 
 		// Set controller name based URL
 		if (isset($url[0])) {
+			$url[0] = ucwords(strtolower($url[0]));
+
 			if (file_exists('controllers/' . $url[0] . '.php')) {
 				$this->controller = ucfirst(strtolower($url[0]));
 				unset($url[0]);
@@ -23,7 +25,7 @@ class App
 			}
 		}
 		// Initialize  controller
-		$controllerName = "Controllers\\$this->controller";
+		$controllerName = "controllers\\$this->controller";
 		$this->controller = new $controllerName;
 
 		// Set method name based URL

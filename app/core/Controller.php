@@ -18,7 +18,7 @@ class Controller
 	public function model($model)
 	{
 		require_once "models/$model.php";
-		$modelName = "\Models\\$model";
+		$modelName = "\models\\$model";
 		return new $modelName;
 	}
 
