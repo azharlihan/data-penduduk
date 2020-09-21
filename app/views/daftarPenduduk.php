@@ -2,9 +2,15 @@
 
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-12 col-sm-6">
+			<h3>Daftar Penduduk</h3>
+		</div>
+		<div class="col-12 col-sm-6 text-right">
+			<a href="<?= BASEURL; ?>/datapenduduk/form">Tambah Baru</a>
+		</div>
+	</div>
+	<div class="row">
 		<div class="col">
-			<h1>Daftar Penduduk</h1>
-
 			<table id="tablePenduduk" class="table table-bordered table-hover" style="width: 100%;"></table>
 		</div>
 	</div>
@@ -52,12 +58,15 @@
 					title: 'Tgl Lahir',
 					orderable: false,
 					render: (data, type, row) => {
-						return `${row.birth_date} (${row.age.padStart(2,'0')} Tahun)`;
+						return `${row.birth_date} (${row.age.padStart(2,'0')}&nbsp;Tahun)`;
 					}
 				},
 				{
 					data: 'stat_hbkel',
-					title: 'Hubungan Keluarga'
+					title: 'Hubungan Keluarga',
+					render: (data, type, row) => {
+						return row.id_stat_hbkel == 1 ? `<strong>${row.stat_hbkel}</strong>` : row.stat_hbkel;
+					}
 				},
 				{
 					data: 'tanggal_update',
