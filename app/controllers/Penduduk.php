@@ -50,4 +50,11 @@ class Penduduk extends \Controller
 
 		$this->response($result);
 	}
+
+	public function putdatapenduduk()
+	{
+		$result = $this->model('Penduduk')->putDataPenduduk($this->stream);
+
+		$this->response($result);
+	}
 }

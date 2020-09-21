@@ -58,6 +58,30 @@ class Penduduk extends \Model
 		];
 	}
 
+	public function putDataPenduduk($postData)
+	{
+		$now = date('Y-m-d H:i:s');
+
+		$query = "
+			UPDATE $this->table
+			SET no_kk = :no_kk, nik = :nik, nama_lengkap = :nama_lengkap, id_stat_hbkel = :id_stat_hbkel, tanggal_update = \"$now\"
+			WHERE nik = :old_nik
+		";
+
+		$this->db->query($query);
+
+		$this->db->bind('no_kk', $postData->no_kk);
+		$this->db->bind('nik', $postData->nik);
+		$this->db->bind('old_nik', $postData->old_nik);
+		$this->db->bind('nama_lengkap', $postData->nama_lengkap);
+		$this->db->bind('id_stat_hbkel', $postData->id_stat_hbkel);
+		$this->db->execute();
+		return [
+			'status' => 'ok',
+			'message' => 'Data Penduduk berhasil di perbarui.'
+		];
+	}
+
 	public function getDaftarHbkel()
 	{
 		$this->db->query('SELECT * FROM hubungan_keluarga');
