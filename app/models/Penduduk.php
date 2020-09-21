@@ -49,7 +49,7 @@ class Penduduk extends \Model
 
 		$this->db->bind('no_kk', $postData->no_kk);
 		$this->db->bind('nik', $postData->nik);
-		$this->db->bind('nama_lengkap', $postData->nama_lengkap);
+		$this->db->bind('nama_lengkap', strtoupper($postData->nama_lengkap));
 		$this->db->bind('id_stat_hbkel', $postData->id_stat_hbkel);
 		$this->db->execute();
 		return [
@@ -73,7 +73,7 @@ class Penduduk extends \Model
 		$this->db->bind('no_kk', $postData->no_kk);
 		$this->db->bind('nik', $postData->nik);
 		$this->db->bind('old_nik', $postData->old_nik);
-		$this->db->bind('nama_lengkap', $postData->nama_lengkap);
+		$this->db->bind('nama_lengkap', strtoupper($postData->nama_lengkap));
 		$this->db->bind('id_stat_hbkel', $postData->id_stat_hbkel);
 		$this->db->execute();
 		return [

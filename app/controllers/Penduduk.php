@@ -46,16 +46,32 @@ class Penduduk extends \Controller
 
 	public function postdatapenduduk()
 	{
-		$result = $this->model('Penduduk')->postDataPenduduk($this->stream);
+		$validation = $this->validateDataPenduduk($this->stream);
 
-		$this->response($result);
+		if ($validation === true) {
+			$result = $this->model('Penduduk')->postDataPenduduk($this->stream);
+			$this->response($result);
+		} else {
+			return [
+				'status' => 'fail',
+				'message' => $validation,
+			];
+		}
 	}
 
 	public function putdatapenduduk()
 	{
-		$result = $this->model('Penduduk')->putDataPenduduk($this->stream);
+		$validation = $this->validateDataPenduduk($this->stream);
 
-		$this->response($result);
+		if ($validation === true) {
+			$result = $this->model('Penduduk')->putDataPenduduk($this->stream);
+			$this->response($result);
+		} else {
+			$this->response([
+				'status' => 'fail',
+				'message' => $validation,
+			]);
+		}
 	}
 
 	public function delete($nik)
@@ -63,5 +79,17 @@ class Penduduk extends \Controller
 		$result = $this->model('Penduduk')->deleteDataPenduduk($nik);
 
 		$this->response($result);
+	}
+
+	// Untuk proses validasi di sisi server
+	private function validateDataPenduduk($d)
+	{
+		if (strlen($d->no_kk == 0) && strlen($d->no_kk > 16)) return 'Nomor KK harus 16 digit';
+		if (strlen($d->no_kk == 0) && strlen($d->no_kk > 16)) return 'NIK harus 16 digit';
+		if (strlen($d->nama_lengkap) == 0) return 'Nama tidak boleh kosong';
+		if (strlen($d->nama_lengkap) > 100) return 'Nama maksimal 100 karakter';
+		if (strlen($d->id_stat_hbkel) == 0) return 'Harap isi status hubungan keluarga';
+
+		return true;
 	}
 }
