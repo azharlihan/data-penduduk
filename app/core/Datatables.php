@@ -1,6 +1,6 @@
 <?php
 
-class Datatable
+class Datatables
 {
 	public $postData;
 

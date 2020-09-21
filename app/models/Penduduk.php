@@ -14,7 +14,7 @@ class Penduduk extends \Model
 
 	public function getDaftarPenduduk($postData)
 	{
-		$datatable = new \Datatable;
+		$datatable = new \Datatables;
 
 		$datatable->postData = $postData;
 		$datatable->from = $this->table;
