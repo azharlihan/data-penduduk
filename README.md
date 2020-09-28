@@ -14,4 +14,4 @@ CRUD data penduduk menggunakan konsep OOP PHP tanpa framework.
 7. Akses url sesuai konfigurasi URL tadi.
 
 ### Info tambahan
-Folder `/publik` dapat dipindah ketempat lain terpisah dengan folder `/app`. Dengan penyesuaian path pada file `/publik/index,php` dan penyesuaian BASEURL pada `/app/core/Config.php`
+Folder `/public` dapat dipindah ketempat lain terpisah dengan folder `/app`. Dengan penyesuaian path pada file `/public/index.php` dan penyesuaian BASEURL pada `/app/core/Config.php`
