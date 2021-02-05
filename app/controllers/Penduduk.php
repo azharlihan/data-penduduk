@@ -102,7 +102,7 @@ class Penduduk extends \Controller
 
 		if (strlen($d->nama_lengkap) == 0) return 'Nama tidak boleh kosong';
 		if (strlen($d->nama_lengkap) > 99) return 'Nama maksimal 99 karakter';
-		if (preg_match('/[^A-z ]/', $d->nama_lengkap)) return 'Nama hanya boleh mengandung huruf dan spasi';
+		if (preg_match('/[^A-z .]/', $d->nama_lengkap)) return 'Nama hanya boleh mengandung huruf, titik dan spasi';
 
 		if (strlen($d->id_stat_hbkel) == 0) return 'Harap isi status hubungan keluarga';
 		$infoNik = $this->model('Penduduk')->extractInfoNik($d->nik);
