@@ -9,7 +9,7 @@ class Penduduk extends \Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->table = 'data_penduduk';
+		$this->table = $this->db_prefix . 'data_penduduk';
 	}
 
 	public function getDaftarPenduduk($postData)
@@ -18,7 +18,7 @@ class Penduduk extends \Model
 
 		$datatable->postData = $postData;
 		$datatable->from = $this->table;
-		$datatable->join = 'INNER JOIN hubungan_keluarga USING(id_stat_hbkel)';
+		$datatable->join = "INNER JOIN {$this->db_prefix}hubungan_keluarga USING(id_stat_hbkel)";
 		$datatable->searchColumn = [
 			'no_kk',
 			'nik',
@@ -102,7 +102,7 @@ class Penduduk extends \Model
 
 	public function getDaftarHbkel()
 	{
-		$this->db->query('SELECT * FROM hubungan_keluarga');
+		$this->db->query("SELECT * FROM {$this->db_prefix}hubungan_keluarga");
 		return $this->db->result();
 	}
 
