@@ -1,0 +1,59 @@
+<?php
+
+if (!isset($_SERVER['argv'][1])) {
+	echo "Type: \e[32mphp cli migrate \e[0mTo run database migration.\n\n";
+	exit;
+}
+
+if ($_SERVER['argv'][1] != 'migrate') {
+	echo "\e[91mUnknown Command: \e[0m" . $_SERVER['argv'][1] . "\n\n";
+	exit;
+}
+
+echo "This command will overwrite existing table on your selected database. Type Y to continue: ";
+$handle = fopen ("php://stdin","r");
+$line = strtoupper(trim(fgets($handle)));
+
+if($line != 'Y'){
+    echo "ABORTING!\n";
+    exit;
+}
+
+fclose($handle);
+unset($handle, $line);
+
+require_once 'app/core/Config.php';
+require_once 'app/core/Database.php';
+
+$db = new Database;
+
+$db_prefix = DB_PREFIX;
+
+$queries = [
+	"DROP TABLE IF EXISTS `{$db_prefix}data_penduduk`",
+	"CREATE TABLE `{$db_prefix}data_penduduk` (
+		`no_kk` char(18) DEFAULT NULL,
+		`nik` char(18) NOT NULL,
+		`nama_lengkap` varchar(100) DEFAULT NULL,
+		`id_stat_hbkel` int(11) DEFAULT NULL,
+		`no_rt` int(11) DEFAULT NULL,
+		`tanggal_create` datetime DEFAULT NULL,
+		`tanggal_update` datetime DEFAULT NULL,
+		PRIMARY KEY (`nik`)
+	)",
+	"INSERT INTO `{$db_prefix}data_penduduk`(`no_kk`,`nik`,`nama_lengkap`,`id_stat_hbkel`,`no_rt`,`tanggal_create`,`tanggal_update`) values ('6403062407080001','6403060101670001','ABDUL MAJID',1,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080022','6403060101700005','ADDUL',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080043','6403060107510003','ADAM',1,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062307080036','6403060107670002','AHMAD',1,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403060211090003','6403060702100001','ABDUL WAHID SAPARUDDIN',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403061702150001','6403060709150001','ABDIAN SYAH PRATAMA',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403060211090003','6403060902140001','ABDUL HABIB MAULANA',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062307080058','6403061307850001','AGUS RIADI',9,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080054','6403061406620001','ABDUR RASYID',1,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080079','6403061503770001','ABDUL MUIS',1,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080010','6403061801610001','ABDUL RAHMAN',9,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080057','6403061907080001','AFGHAN AL-BANNA',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080023','6403062007040001','ABDUL RAHMAN',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080066','6403062102810001','AGUS',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403061909080025','6403062802030002','ADI INRA FEBRIADI',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062609130003','6403062804140001','AHMAD IMAM AL HAFIZH',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062407080042','6403064107710003','AINUN ZARIAH',3,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403061211150002','6403064209980001','ADE MARPINA',3,1,'2016-09-19 18:21:43','2016-09-19 18:21:43'),('6403062111120002','6403064902130001','AISYAH MUMTAZAH',4,1,'2016-09-19 18:21:43','2016-09-19 18:21:43')",
+	"DROP TABLE IF EXISTS `{$db_prefix}hubungan_keluarga`",
+	"CREATE TABLE `{$db_prefix}hubungan_keluarga` (
+		`id_stat_hbkel` int(11) NOT NULL,
+		`stat_hbkel` varchar(20) DEFAULT NULL,
+		PRIMARY KEY (`id_stat_hbkel`)
+	)",
+	"INSERT INTO `{$db_prefix}hubungan_keluarga`(`id_stat_hbkel`,`stat_hbkel`) values (1,'Kepala Keluarga'),(2,'Suami'),(3,'Istri'),(4,'Anak'),(5,'Menantu'),(6,'Cucu'),(7,'Orang Tua'),(8,'Mertua'),(9,'Famili Lain'),(10,'Pembantu'),(11,'Lainnya')",
+];
+
+foreach ($queries as $query) {
+	$db->query($query);
+	$db->execute();
+}
+
+echo "Migration success.\n\n";
