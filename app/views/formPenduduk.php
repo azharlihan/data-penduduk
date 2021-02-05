@@ -7,7 +7,7 @@
 					<h5 class="card-title text-center"><?= $type; ?> Data Penduduk</h5>
 					<form action="<?= BASEURL; ?>" id="formPenduduk">
 						<input type="hidden" name="type" value="<?= strtolower($type); ?>">
-						<input type="hidden" name="old_nik" value="<?= $detailPenduduk['nik']; ?>">
+						<input type="hidden" name="old_nik" value="<?= !isset($detailPenduduk['nik']) ? null : $detailPenduduk['nik']; ?>">
 						<div class="form-group">
 							<label for="no_kk">Nomor Kartu Keluarga</label>
 							<input type="text" class="form-control" name="no_kk" id="no_kk" placeholder="Ketik nomor KK" value="<?= !isset($detailPenduduk['no_kk']) ? null : $detailPenduduk['no_kk']; ?>">
