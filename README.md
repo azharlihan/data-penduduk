@@ -7,7 +7,7 @@ CRUD (Create, Read, Update, Delete) data penduduk menggunakan konsep OOP PHP tan
 
 1. Clone repository ini: `git clone https://github.com/azharlihan/data-penduduk.git`
 1. Buat database mysql.
-1. Pindah ke folder core: `cd datapenduduk/app/core`
+1. Pindah ke folder core: `cd data-penduduk/app/core`
 1. Duplikat file **Config.example.php** dan rename menjadi **Config.php**: `cp Config.example.php Config.php`
 1. Isi database credential pada file **Config.php**
 1. kembali ke root project: `cd ../..`
