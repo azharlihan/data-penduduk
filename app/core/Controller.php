@@ -31,10 +31,10 @@ class Controller
 	public function postData($key = null)
 	{
 		if (is_null($key)) {
-			$postData =  filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING, true);
+			$postData =  filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
 			return $postData;
 		} else {
-			return filter_input(INPUT_POST, $key, FILTER_SANITIZE_STRING);
+			return filter_input(INPUT_POST, $key, FILTER_DEFAULT);
 		}
 	}
 

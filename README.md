@@ -14,4 +14,17 @@ CRUD (Create, Read, Update, Delete) data penduduk menggunakan konsep OOP PHP tan
 1. Jalankan migrasi database: `php cli migrate`
 
 ## Info tambahan
+
+### Pemindahan folder public
+
 Folder `/public` dapat dipindah ketempat lain terpisah dengan folder `/app`. Dengan penyesuaian path pada file `/public/index.php` dan penyesuaian BASEURL pada `/app/core/Config.php`
+
+### Rewrite nginx
+
+Jika menggunakan nginx, silahkan konfigurasikan vhost nya agar ditambahkan rewrite rule:
+
+```
+location / {  
+	try_files $uri $uri/ /index.php$is_args$query_string;  
+}
+```

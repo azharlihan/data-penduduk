@@ -51,11 +51,14 @@ class App
 	// Parsing to get pretty URL
 	public function parseURL()
 	{
-		if (isset($_GET['url'])) {
-			$url = rtrim($_GET['url'], '/');
-			$url = filter_var($url, FILTER_SANITIZE_URL);
+		$path = trim($_SERVER['REQUEST_URI'], '/');
+
+		if (!empty($path)) {
+			$url = filter_var($path, FILTER_SANITIZE_URL);
 			$url = explode('/', $url);
 			return $url;
 		}
+
+		return null;
 	}
 }
